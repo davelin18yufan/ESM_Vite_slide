@@ -22,9 +22,8 @@ transition: slide-left
 mdc: true
 ---
 
-# 前端模組化、NodeJS 與 ViteJS
-
-前端模組化、NodeJS 與 ViteJS
+# 前端模組化與打包工具
+<h3 style="font-size: 1.5em; color:rgb(167, 167, 167);">ES modules、NodeJS 與 ViteJS</h3>
 
 <div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
   Let's Go! <carbon:arrow-right />
@@ -34,7 +33,7 @@ mdc: true
   <button @click="$slidev.nav.openInEditor" title="Open in Editor" class="slidev-icon-btn">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
+  <a href="https://github.com/davelin18yufan/ESM_Vite_slide" target="_blank" class="slidev-icon-btn">
     <carbon:logo-github />
   </a>
 </div>
@@ -47,7 +46,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 transition: fade-out
 ---
 
-# 1. 現狀分析與痛點
+# 現狀分析與痛點
 
 ### 現行開發方式問題
 
@@ -58,11 +57,26 @@ transition: fade-out
   :initial="{ x: 100, opacity: 0 }"
   :click-1="{ x: 0, opacity: 100  }"
   :leave="{ y: 0, x: 80 }"> 
+
 ```html
+  <!-- _Layout.cshtml -->
     <!-- CSS -->
-    <link href="~/CssPage/Main/uploadFile.css?v=@eLearningWeb.AppConfig.Version" rel="stylesheet" />
+    <link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
+    <link href="~/CssPage/Group/layout.css" rel="stylesheet" />
     <!-- JS -->
-    <script type="text/javascript" src="~/JsPage/Models/TM_AttFile_Attachment.js?v=@eLearningWeb.AppConfig.Version"></script>
+    <script type="text/javascript" src="~/JsPage/Models/TM_AttFile_Attachment.js"></script>
+    <script src="~/Template/Hyper_Red/js/app.es5.min.js"></script>
+  <!-- _PartialHeader.cshtml -->
+    <!-- CSS -->
+    <link href="~/Template/Hyper_Red/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- JS -->
+    <script src="~/JsPage/Group/G001/Header.js"></script>
+  <!-- _PartialMain.cshtml -->
+    <!-- CSS -->
+    <link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
+    <!-- JS -->
+    <script src="~/Template/Hyper_Red/js/vendor/jquery.dataTables.min.js"></script>
+
 ```
  </div>
 
@@ -73,12 +87,15 @@ transition: fade-out
 <style>
 h1,h2 {
   background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%,rgb(14, 77, 102) 20%);
+  background-image: linear-gradient(45deg, #4EC5D4 15%,rgb(30, 117, 151) 20%);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
+}
+code {
+  color:rgb(255, 203, 15);
 }
 </style>
 
@@ -87,7 +104,8 @@ h1,h2 {
 
 - **維護性問題**：
   - 隨著專案規模增大，JavaScript 和 CSS 文件數量增加，依賴關係變得複雜，難以管理。
-  - 多次因為 jQuery 插件的引入順序錯誤導致功能失效。
+  - 多次因為 `jQuery` 插件的引入順序錯誤導致功能失效。
+  - 又或是套件跟現行程式衝突卻無從找起。
 - **性能問題**：
   - 頁面首次加載需載入大量靜態資源，影響用戶體驗。
 - **團隊協作問題**：
@@ -117,15 +135,15 @@ level: 2
 layout: two-cols
 ---
 
-# 2. 模組化技術演進與優勢
+# 模組化技術演進與優勢
 
-### 技術演進圖表
+### 簡略演進史
 
 | 時代         | 方法              | 特點與問題                 |
 | ---------- | --------------- | -------------------------- |
 | 傳統         | `<script>`      | 手動管理依賴，易出錯          |
-| CommonJS   | `require()`     | 適用後端，但瀏覽器需打包工具 |
-| ES Modules | `import/export` | 原生支持，結構清晰            |
+| CommonJS   | `require()`     | 同步，適用後端，但瀏覽器需打包工具 |
+| ES Modules | `import/export` | 原生支持，結構清晰，支援非同步      |
 
 
 :: right ::
@@ -134,564 +152,431 @@ layout: two-cols
 
 ### 模組化核心目標與解決方案
 
-#### 核心目標
-
-1. 提升代碼可讀性與可維護性。
-2. 減少代碼耦合，提升可重用性。
+1. 提升程式碼可讀性與可維護性。
+2. 減少程式碼耦合，提升可重用性。
 3. 解決依賴順序與重複引入問題。
 
 
-<div v-click v-motion
-  :initial="{ x: -50 }"
-  :enter="{ x: 0 }"
-  :leave="{ x: 50 }"
-  >
-
-```javascript
-import $ from 'jquery';
-import Dropzone from 'dropzone';
-$(document).ready(() => {
-  const myDropzone = new Dropzone('#my-dropzone');
-});
-```
-</div>
-
-<div v-click v-motion
-  :initial="{ x: -50 }"
-  :enter="{ x: 0 }"
-  :leave="{ x: 50 }"
->
-
-```javascript
-import $ from 'jquery';
-import Dropzone from 'dropzone';
-$(document).ready(() => {
-  const myDropzone = new Dropzone('#my-dropzone');
-});
-```
-</div>
-
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
 ````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
 
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
+```javascript 
+// module.js
+const greeting = 'Hello world';
+
+function add(a, b) {
+  return a + b;
 }
+
+module.exports = {
+  greeting: greeting,
+  add: add
+};
+
+// main.js
+const myModule = require('./module');
+
+console.log(myModule.greeting); // Hello world
+console.log(myModule.add(2, 3)); // 5
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
+```javascript
+// module.js
+import $ from 'jquery';
+import Dropzone from 'dropzone';
+
+const myDropzone = new Dropzone('#my-dropzone');
+
+export myDropzone;
+
+// main.js
+import { myDropzone } from "./module.js";
+myDropzone.processFile();
+
 ```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
+```` 
 
 ---
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
+transition: slide-left
 ---
 
-# Themes
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
+## 實際解決的問題
 
-<div grid="~ cols-2 gap-2" m="t-2">
+- **單一入口**：每個模組只有一個導出入口，清楚定義依賴關係。
+  - **方便複用**：模組化後的代碼可以方便地在不同項目中重用，避免重複編寫相同功能，並且一定會留下引入紀錄。
+  - **完整封裝**：導出模組時，JSDoc註解和型別（TypeScript）也會一同編譯，<span v-mark.red="1">跨文件保留完整的開發訊息。</span>
 
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
+- **避免命名衝突**：模組化將變數封裝在模組內，避免全局命名空間污染。
 
 <v-click>
 
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
+````md magic-move {lines: true}
 
-```html
-<span v-mark.underline.orange>inline markers</span>
+```javascript {1-5|7-12|*} 
+  // A.js
+  const privateVar = 'I am in A.js';
+  /** some comment */
+  export function showVar() {
+    console.log(privateVar); 
+  }
+
+  // B.js
+  import { showVar } from "A.js";
+  const privateVar = 'I am in B.js'
+  showVar(); // 'I am in A.js' 如果hover會得到'some comment'
+  console.log(privateVar); // 'I am in B.js'
 ```
-
+````
 </v-click>
 
-<div mt-20 v-click>
+---
+transition: slide-up
+---
 
-[Learn more](https://sli.dev/guide/animations#click-animation)
+- **按需加載**：ESM 原生支援動態加載，只加載實際需要的部分，提升性能。
+  1. **完整加載**
+
+
+````md magic-move {lines: true}
+
+```javascript
+// <script src="./module.js"></script> 使用舊方法載入JS
+
+largeFunction.smallFunction();
+```
+
+```javascript
+// CommonJS
+const largeFunction = require("./module.js");
+
+largeFunction.smallFunction();
+```
+
+````
+
+  2. **動態加載**: <v-click><span v-mark.red="2" class="ml-1 text-base">只載入會被使用到的部分，維護程式隱蔽性、減少不必要效能使用、減少記憶體使用</span></v-click>
+
+  ```javascript
+  import('./module.js').then(({ smallFunction }) => {
+    smallFunction();
+  }); 
+  ```
+- **打包編譯工具**：打包工具如 Vite 、 Webpack 、 Rspack 等工具會自動解析依賴，優化資源分配。
+
+<v-click>
+```mermaid {scale: 0.8}
+graph LR
+  A[Entry File] --> B[JavaScript Modules]
+  B --> C[Unused Code Removed]
+  B --> D[Tree Shaking]
+  D --> E[Minified Code]
+  C --> E
+  E --> F[Optimized Bundle]
+```
+</v-click>
+
+---
+transition: slide-down
+---
+
+## CommonJS 和 ESM 的問題
+
+- **兼容性問題**：
+  - CommonJS 和 ESM 之間的兼容性問題可能會導致套件的錯誤。由於兩者的模組系統不同，某些包在轉換過程中可能會出現問題。
+  - 例如，CommonJS 使用 `module.exports` 和 `require()`，而 ESM 使用 `export` 和 `import`，導致在<span v-mark.circle.yellow="1">混合使用</span>這兩種模組系統時可能會出現錯誤。
+
+- **動態加載問題**：
+  - ESM 的動態加載語法 `import()` 可能在某些環境中不被支持，這會導致在這些環境中運行的代碼出現問題。
+
+
+
+---
+transition: slide-left
+---
+
+## 解決方案
+
+- 統一模組系統：
+  - 儘量在項目中統一使用一種模組系統，<span v-mark.circle.yellow="1">避免混合使用</span> CommonJS 和 ESM，以減少兼容性問題。
+
+- **使用轉換工具**：
+  - <span v-mark.red="2">使用 `Babel` 等轉換工具將 ESM 代碼轉換為 CommonJS</span>，或反之，確保在所有環境中都能正常運行。
+
+- 檢查工具鏈支持：
+  - 在使用 ESM 時，確保所使用的打包工具和編譯器對 ESM 的支持完善，避免因工具鏈問題導致的錯誤。
+
+- **動態加載替代方案**：
+  - 在不支持 ESM 動態加載的環境中，考慮使用其他方式實現動態加載，如使用 CommonJS 的 `require()`。
+
+- 明確模組路徑：
+  - 在引用模組時，明確指定模組的路徑，避免因模組解析行為不同導致的錯誤。
+
+
+---
+transition: fade
+---
+
+# Node.js
+
+- **跨平台環境**：Node.js 提供了一個<span v-mark.circle.yellow="1">跨平台</span>的<span v-mark.red="1">Runtime</span>，使得 JavaScript 可以在伺服器端高效執行。等同開發者可以使用同一種語言在<span v-mark.red="1">前端和後端</span>進行開發，減少了學習成本和開發時間。
+- **模組管理**：Node.js 通過 [NPM（Node Package Manager）](https://www.npmjs.com/) 簡化了第三方庫的管理。NPM 是世界上最大的套件管理庫，提供了數百萬個開源庫，開發者可以輕鬆地搜索、安裝和管理這些庫，從而加速開發過程並提高代碼質量。
+- **非阻塞 I/O**：Node.js 採用<span v-mark.red="2">事件驅動和非阻塞 I/O 模型</span>，使其在<span v-mark.circle.yellow="2">處理大量並發連接</span>時具有高效能。這使得 Node.js 非常適合用於 I/O 密集型應用，如 Web 服務和即時應用。
+- **豐富的生態系統**：除了 NPM 提供的第三方庫，Node.js 還有許多常見的框架和工具，如 `Express.js`、`Koa.js` 和 `NestJS`..，這些工具和框架進一步簡化了開發過程，並提供了強大的功能和靈活性。
+- **更靈活的執行環境運用** : 因為Node.Js不會只侷限於在瀏覽器上才能執行，因此創造了更廣大的應用可能性，例如不必到client端才開始執行JS，可以更快速有效率的運算跟渲染、控管自己的環境變數、
+
+<div v-click="3">
+
+```bash
+npm install jquery
+yarn add jquery
+pnpm add jquery
+```
 
 </div>
 
 ---
+transition: fade
+layout: image-right
+image: ./assets/trend.png
+backgroundSize: contain
+---
 
-# Motions
+## Node.js 開發者統計數據2024
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
+- Node.js 的主要使用在構建電子商務、籌資、物聯網驅動和支付處理應用程序。
+- Node.js 將加載時間減少了 50% 到 60%。
+- 使用 Node 開發服務可以將開發成本降低 58%。
+- 46% 的 Node.js 開發者年齡介於 25 ~ 35 歲。
+- 36.42% 的開發者積極使用 Node.js 及其相關工具，包括框架、套件和 IDE。
+- 一些使用 Node.js 的熱門網站如 Twitter、Netflix、GitHub、Spotify、Adobe 和 Cloudflare。
+- 95% 的 Node.js 開發者在項目中搭配 DB。
+- 大約 86% 的開發者在使用 Node.js 時會使用套件或前端框架。
 
+
+---
+transition: slide-down
+layout: two-cols-header
+class: gap-2
+---
+
+## 簡單介紹 NPM
+
+:: left ::
+
+#### 管理dependencies
+
+- 安裝單一套件：
+
+  ```bash
+  npm install <package-name>
+  ```
+
+- 安裝特定版本的套件：
+
+  ```bash
+  npm install <package-name>@<version>
+  ```
+
+- 安裝開發套件：
+
+  ```bash
+  npm install <package-name> --save-dev
+  ```
+
+:: right ::
+
+#### package.json 管理腳本
+
+````md magic-move {lines: true}
+
+```json {*|1-5|6-11|12-17}
+{
+  "name": "my-project", 
+  "version": "1.0.0",
+  "description": "A simple project",
+  "main": "index.js",
+  "scripts": {               // 定義執行腳本快捷
+    "start": "node index.js",
+    "test": "jest",
+    "build": "dotnet build",
+    "run": "dotnet run"
+  },
+  "dependencies": {          // 公開套件
+    "dotnet": "^4.17.1"
+  },
+  "devDependencies": {       // 開發人員套件
+    "jest": "^26.6.3"
+  }
+}
+```
+````
+---
+transition: fade-out
+---
+
+# Vite
+
+- **快速冷啟動**：<span v-mark.red="1">原生 ES Modules 支持，無需預編譯</span>，冷啟動速度極快。
+- **HMR 支持**：即時程式碼更新，開發過程中無需刷新頁面即可看到變更。
+- **資源優化**：內置 <span v-mark.circle.yellow="1">Tree Shaking</span> 和 <span v-mark.circle.yellow="1">Minify</span>，僅保留必要代碼，減少文件大小，提升加載速度。
+- **豐富插件生態**：支持多種插件，擴展功能靈活。
+- **友好的開發體驗**：提供詳細的錯誤提示和快速的反饋循環。
+- **靈活配置**：支持自定義配置，滿足不同項目的需求。
+- **跨平台支持**：兼容多種操作系統和瀏覽器，開發環境無縫切換。
+
+<div class="grid grid-cols-2 gap-4" v-click="2">
+<img 
+  src="https://vitejs.dev/logo.svg"
+  alt="Vite Logo"
+/>
+<img 
+  src="./assets/vite-github.png"
+  alt="Vite Github"
+  border="rounded"
+/>
+</div>
+
+<style>
+  img {
+    object-fit: contain;
+    height: 200px;
+    margin-inline: auto;
+    margin-top: 1rem;
+  }
+</style>
+---
+transition: fade-out
+layout: two-cols-header
+---
+
+## **Vite 在其 dev server 的實作上使用了 Native-ESM-based 的架構，這個架構實際上與過往傳統的 bundle-based 架構的工具不同!**
+
+:: left ::
+
+<div 
+  v-click
+  v-motion
+  :initial="{ x: -50 }"
+  :enter="{ x: 0, y: -50 }"
+  :leave="{ x: 50 }"
+  >
+  <img
+    src="./assets/bundle-based-server.png"
+    alt="native esm dev server"
+    border="rounded"
+  />
+</div>
+
+:: right ::
+
+<div 
+  v-click
+  v-motion
+  :initial="{ x: -50 }"
+  :enter="{ x: 10, y: -50 }"
+  :leave="{ x: 50 }"
+  >
+  <img
+    src="./assets/native-esm-server.png"
+    alt="native esm dev server"
+    border="rounded"
+  />
+</div>
+
+---
+transition: fade-out
+--- 
+
+## Bundle
+<div v-after>
+  <h4 style="color:rgb(246, 240, 189)">經由entry point, Vite會藉由<span v-mark.circle.orange="1">入口點</span>一路往下找去做<span v-mark.red="1"> bundle, minify, transpile </span></h4>
+</div>
+
+<div v-click="2">
+  - 只要在開發過程保持檔案結構，並不會影響開發流程，就會自動將靜態檔案全部打包並處理。
+</div>
+
+````md magic-move {lines: true}
+
+```plaintext {*|12}
+# 未經優化的輸出
+project/
+├── Controllers/
+│   ├── HomeController.cs
+│   └── ApiController.cs
+├── Views/
+│   ├── Home/
+│   │   └── Index.cshtml
+│   └── Shared/
+│       └── _Layout.cshtml
+├── JsPage/
+│   ├── app.js            // entry point
+│   └── layout.js
+├── CssPage/
+│   └── css/
+│       └── layout.css
+└── bin/
+  └── Debug/
+    └── net4.8/
+      └── web.dll
+```
+
+```plaintext {*|6-7}
+# 經過 Vite 打包的輸出
+project/
+├── dist/
+│   ├── js/
+│   │   └── app.js 
+│   └── css/
+│       └── styles.css
+└── bin/
+  └── Release/
+    └── net4.8/
+      └── web.dll
+```
+````
+
+
+<v-click>
+
+````md magic-move {lines: true}
 ```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
+<!-- 原本的引入方式 -->
+<link rel="stylesheet" href="styles.css">
 ```
 
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
+```javascript
+// app.js
+import './styles.css';
 
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
+```
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+```bash
+# 開發環境
+npm run dev
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
+# 生產環境
+npm run build
+```
+````
+</v-click>
 
 ---
-
-# LaTeX
-
-LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
-
----
+transiton: fade-out
 layout: center
 class: text-center
 ---
 
-# Learn More
+# Node.Js紀錄片
+<Youtube id="LB8KwiiUGy0" width="800" height="400"/>
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+---
+layout: center
+class: text-center
+--- 
+
+# 謝謝聆聽
+
+[References](https://ithelp.ithome.com.tw/users/20169399/ironman/8023) · [GitHub](https://github.com/davelin18yufan/ESM_Vite_slide) · [Showcases](https://sli.dev/resources/showcases)
 
 <PoweredBySlidev mt-10 />
