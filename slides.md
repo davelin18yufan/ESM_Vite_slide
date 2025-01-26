@@ -204,9 +204,9 @@ transition: slide-left
 
 - **單一入口**：每個模組只有一個導出入口，清楚定義依賴關係。
   - **方便複用**：模組化後的代碼可以方便地在不同項目中重用，避免重複編寫相同功能，並且一定會留下引入紀錄。
-  - **完整封裝**：導出模組時，JSDoc註解和型別（TypeScript）也會一同編譯，<span v-mark.red="1">跨文件保留完整的開發訊息。</span>
+  - **完整封裝**：導出模組時，JSDoc註解和型別（TypeScript）也會一同編譯，<span v-mark.red="2">跨文件保留完整的開發訊息。</span>
 
-- **避免命名衝突**：模組化將變數封裝在模組內，避免全局命名空間污染。
+- **避免命名衝突**：<span v-mark.red="2">模組化將變數封裝在模組內</span>，避免全局命名空間污染。
 
 <v-click>
 
@@ -226,7 +226,9 @@ transition: slide-left
   showVar(); // 'I am in A.js' 如果hover會得到'some comment'
   console.log(privateVar); // 'I am in B.js'
 ```
+
 ````
+
 </v-click>
 
 ---
