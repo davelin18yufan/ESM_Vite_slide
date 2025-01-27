@@ -242,7 +242,7 @@ transition: slide-up
 ````md magic-move {lines: true}
 
 ```javascript
-// <script src="./module.js"></script> 使用舊方法載入JS
+// <script src="./module.js"></script> 使用傳統 HTML 載入
 
 largeFunction.smallFunction();
 ```
@@ -265,7 +265,12 @@ largeFunction.smallFunction();
   ```
 - **打包編譯工具**：打包工具如 Vite 、 Webpack 、 Rspack 等工具會自動解析依賴，優化資源分配。
 
-<v-click>
+<div v-motion
+  v-click
+  :initial="{ scale: 0, opacity: 0 }"
+  :enter="{ scale: 1, opacity: 100  }"
+  class="mt-3">
+
 ```mermaid {scale: 0.8}
 graph LR
   A[Entry File] --> B[JavaScript Modules]
@@ -275,7 +280,7 @@ graph LR
   C --> E
   E --> F[Optimized Bundle]
 ```
-</v-click>
+</div>
 
 ---
 transition: slide-down
@@ -426,7 +431,11 @@ transition: fade-out
 - **靈活配置**：支持自定義配置，滿足不同項目的需求。
 - **跨平台支持**：兼容多種操作系統和瀏覽器，開發環境無縫切換。
 
-<div class="grid grid-cols-2 gap-4" v-click="2">
+<div class="grid grid-cols-2 gap-4" 
+  v-click="2"
+  v-motion
+  :initial="{ y: 180 }"
+  :enter="{y: 0 }">
 <img 
   src="https://vitejs.dev/logo.svg"
   alt="Vite Logo"
