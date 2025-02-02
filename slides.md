@@ -7,10 +7,9 @@ background: https://cover.sli.dev
 # some information about your slides (markdown enabled)
 title: 前端模組化、NodeJS 與 ViteJS
 info: |
-  ## 前端模組化與 Vite 引入計畫
+  ## 前端模組化與 bundler 導入計畫
   Presentation for developers.
 
-  Learn more at [Sli.dev](https://sli.dev)
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
@@ -353,7 +352,7 @@ layout: two-cols
   </div>
 
   <div class="flex flex-col items-center space-y-2">
-    <carbon:arrow-up class="text-4xl text-amber-500" />
+    <carbon:close class="text-4xl text-amber-500" />
     <div class="font-bold text-amber-400">順序不再重要</div>
   </div>
 
@@ -487,7 +486,10 @@ transition: slide-left
 ```
 
 ````
+</v-click>
 
+<v-click>
+  <p class="text-center"><span class="italic text-gray-400 mr-2">現在小龍可以把多出的時間拿來泡咖啡了!</span>😊</p>
 </v-click>
 
 ---
@@ -589,17 +591,17 @@ Instead change the require of (...) in (...) to a dynamic import() which is avai
 
   <div class="flex items-center justify-center">
     <div class="relative size-64 ">
-      <div class="absolute inset-0 ">
+      <div class="absolute inset-0 -top-6">
         <div class="relative w-full h-full overflow-hidden">
           <div class="absolute inset-0 flex items-center justify-center">
             <div class="relative">
               <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-20 h-20 rounded-full bg-blue-200 border-2 border-blue-300 flex items-center justify-center">
+                <div class="w-28 h-28 rounded-full bg-blue-200 border-2 border-blue-300 flex items-center justify-center">
                   <span class="text-xs text-gray-700">ESM</span>
                 </div>
               </div>
               <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-20 h-20 rounded-full bg-green-200 border-2 border-green-300 flex items-center justify-center mr-30">
+                <div class="w-16 h-16 rounded-full bg-green-200 border-2 border-green-300 flex items-center justify-center mr-30">
                   <span class="text-xs text-gray-700 text-wrap">CJS</span>
                 </div>
               </div>
@@ -660,7 +662,7 @@ transition: slide-left
     <div class="font-bold text-amber-800">動態加載</div>
   </div>
   <div class="text-gray-600">
-    提供 <span v-mark.red="1">require()</span> 作為 import() 的替代方案
+    提供 <code v-mark.circle.red="1">require()</code> 作為 <code>import()</code> 的替代方案
   </div>
 </div>
 
@@ -904,7 +906,7 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
 <div class="grid grid-cols-3 gap-2">
   <div class="bg-gray-900 text-white py-3 px-4 rounded-xl shadow-lg flex flex-col items-center ">
     <h4 class="text-yellow-400 text-xl font-bold">⚡ 極速冷啟動</h4>
-    <p class="text-sm">Vite 透過 <span class="text-green-400">原生 ES Modules</span>，冷啟動比傳統工具快<span v-mark.red="1"> 10 </span>倍！</p>
+    <p class="text-sm">Vite 透過 <span class="text-green-400">原生 ES Modules</span>，冷啟動比傳統工具快<span class="text-cyan-200 font-bold" v-mark.circle.orange="1"> 10 </span>倍！</p>
   </div>
 
   <div class="bg-gray-900 text-white py-3 px-4 rounded-xl shadow-lg flex flex-col items-center">
@@ -924,7 +926,7 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
 
   <div class="bg-gray-900 text-white py-3 px-4 rounded-xl shadow-lg flex flex-col items-center">
     <h4 class="text-green-400 text-xl font-bold">📣 打包編譯一打十</h4>
-    <p class="text-sm">Vite整合了 transpiler, <span class="text-green-400">bundler (Rollup, esbuild)</span>, <span class="text-green-400 ml-1" v-mark.circle.yellow="1">build tool (Vite)</span> 為一體，一套就做到好。</p>
+    <p class="text-sm">Vite整合了 transpiler, <span class="text-green-400">bundler (Rollup, esbuild)</span>, <span class="text-green-400 ml-1" v-mark.red="1">build tool (Vite)</span> 為一體，一套就做到好。</p>
   </div>
 
   <div class="bg-gray-900 text-white py-3 px-4 rounded-xl shadow-lg flex flex-col items-center">
@@ -958,7 +960,7 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
   v-motion
   :initial="{ scale: 0, opacity: 0 }"
   :enter="{ scale: 1, y: 420, opacity: 100 }"
-  class="absolute inset-0 size-full">
+  class="absolute inset-0 size-full duration-400">
 <img 
   src="./assets/vite-tweet.png"
   alt="Vite"
