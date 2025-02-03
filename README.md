@@ -1,4 +1,4 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# Deployed at [Vercel](https://esm-vite-slide.vercel.app/1)!
 
 To start the slide show:
 
