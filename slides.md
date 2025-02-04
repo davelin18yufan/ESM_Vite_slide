@@ -1100,12 +1100,15 @@ class: text-center
 <Youtube id="LB8KwiiUGy0" width="800" height="400"/>
 
 ---
-layout: center
+layout: cover
 class: text-center
+background: https://images.unsplash.com/photo-1533613220915-609f661a6fe1?q=80&w=1664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 --- 
 
 # 謝謝聆聽
 
-[References](https://ithelp.ithome.com.tw/users/20169399/ironman/8023) · [GitHub](https://github.com/davelin18yufan/ESM_Vite_slide) · [Showcases](https://sli.dev/resources/showcases)
+> [Can Node.js Really Handle Millions of Users?](https://javascript.plainenglish.io/can-node-js-really-handle-millions-of-users-e57415e4fb86) · [Rust 的戰國時代：探索網頁前端工具的前世今生](https://ithelp.ithome.com.tw/users/20169399/ironman/8023) · [Vite原始碼解讀 - 高見龍](https://www.youtube.com/watch?v=q3L9Zsj_oeA&list=PLBd8JGCAcUAEFJzjAQC6DbWTeDICcanFF&index=9)
+
+[GitHub](https://github.com/davelin18yufan/ESM_Vite_slide) · [Showcases](https://sli.dev/resources/showcases)
 
 <PoweredBySlidev mt-10 />
