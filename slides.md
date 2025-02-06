@@ -293,15 +293,15 @@ layout: two-cols
   <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-gray-300 via-blue-400 to-green-500 rounded-full"></div>
 
   <div class="space-y-1 pl-4">
-    <div class="bg-gray-100 border-1 border-sky-50 p-4 rounded-lg">
-      <div class="text-gray-400 font-bold">傳統</div>
+    <div class="bg-slate-200 border-1 border-sky-50 p-4 rounded-lg">
+      <div class="text-gray-600 font-bold">傳統</div>
       <div class="text-gray-600">手動 script 標籤</div>
     </div>
-    <div class="bg-gray-100 border-1 border-amber-50 p-4 rounded-lg">
+    <div class="bg-slate-200 border-1 border-amber-50 p-4 rounded-lg">
       <div class="text-blue-400 font-bold">進化時期</div>
       <div class="text-gray-600">CommonJS：<span v-mark.circle.orange="1">同步</span>，適用後端，但瀏覽器需打包工具</div>
     </div>
-    <div class="bg-gray-100 border-1 border-rose-50 p-4 rounded-lg">
+    <div class="bg-slate-200 border-1 border-rose-50 p-4 rounded-lg">
       <div class="text-green-500 font-bold">現代標準</div>
       <div class="text-gray-600">ES Modules：原生支持，支援
         <span v-mark.circle.orange="1">非同步</span>，結構簡單。
@@ -626,7 +626,7 @@ transition: slide-left
 
 <div class="grid grid-cols-3 gap-4 text-gray-600">
 
-<div class="bg-blue-50 p-4 rounded-lg">
+<div class="bg-blue-100 p-4 rounded-lg">
   <div class="flex items-center space-x-2 mb-4">
     <div class="text-2xl">🎯</div>
     <div class="font-bold text-blue-800">統一標準</div>
@@ -636,7 +636,7 @@ transition: slide-left
   </div>
 </div>
 
-<div class="bg-green-50 p-4 rounded-lg">
+<div class="bg-green-100 p-4 rounded-lg">
   <div class="flex items-center space-x-2 mb-4">
     <div class="text-2xl">🔄</div>
     <div class="font-bold text-emerald-800">轉換工具</div>
@@ -646,7 +646,7 @@ transition: slide-left
   </div>
 </div>
 
-<div class="bg-purple-50 p-4 rounded-lg">
+<div class="bg-purple-100 p-4 rounded-lg">
   <div class="flex items-center space-x-2 mb-4">
     <div class="text-2xl">🛠️</div>
     <div class="font-bold text-violet-800">工具鏈</div>
@@ -656,7 +656,7 @@ transition: slide-left
   </div>
 </div>
 
-<div class="bg-orange-50 p-4 rounded-lg">
+<div class="bg-orange-100 p-4 rounded-lg">
   <div class="flex items-center space-x-2 mb-4">
     <div class="text-2xl">📦</div>
     <div class="font-bold text-amber-800">動態加載</div>
@@ -666,7 +666,7 @@ transition: slide-left
   </div>
 </div>
 
-<div class="bg-teal-50 p-4 rounded-lg">
+<div class="bg-teal-100 p-4 rounded-lg">
   <div class="flex items-center space-x-2 mb-4">
     <div class="text-2xl">📍</div>
     <div class="font-bold text-teal-800">模組路徑</div>
@@ -676,7 +676,7 @@ transition: slide-left
   </div>
 </div>
 
-<div class="bg-gray-50 p-4 rounded-lg flex items-center justify-center">
+<div class="bg-gray-100 p-4 rounded-lg flex items-center justify-center">
   <div class="text-center">
     <div class="text-4xl mb-2">💡</div>
     <div class="text-gray-600 font-bold">更多最佳實踐...</div>
@@ -684,6 +684,103 @@ transition: slide-left
 </div>
 
 </div>
+
+<div 
+  v-click="2"
+  v-motion
+  :initial="{ x: 100 }"
+  :enter="{x: 0 }"
+  class="mt-4 text-gray-400 italic">
+  <quote>Don't Repeat Yourself (The DRY principle)
+    <p class="ml-4">- The Pragmatic Programmer by Andy Hunt and Dave Thomas</p>
+  </quote>
+</div>
+
+---
+transition: fade
+layout: image
+image: https://images.unsplash.com/photo-1547190027-9156686aa2f0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D
+---
+
+## Simple DEMO
+
+````md magic-move {lines: true}
+
+```javascript
+// page1.js
+// GET 請求
+const data = await $.ajax({
+  url: 'https://api.example.com/get',
+  data: { course: 'New Course'},
+  method: 'GET',
+  async: true
+});
+console.log('GET 結果:', data);
+
+// POST 請求
+const data = await $.ajax({
+  url: 'https://api.example.com/post',
+  method: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify({ course: 'New Course', crsNo: "100q-er-gerg" }),
+  async: true
+});
+
+// page2.js
+// 許多類似的請求處理...
+
+```
+
+```javascript
+// ajax.js
+async function ajaxRequest(url, method = 'GET', data = null) {
+  try {
+    const response = await $.ajax({
+      url,
+      method,
+      contentType: 'application/json',
+      data: data ? JSON.stringify(data) : null,
+      async: true
+    });
+    console.log(`${method} 成功:`, response);
+    return response;
+  } catch (error) {
+    console.error(`${method} 失敗:`, error);
+    throw error;
+  }
+}
+
+export ajaxRequest;
+
+```
+
+```javascript{2,13|*}
+// page1.js
+import { ajaxRequest } from "./ajax.js"
+// GET
+const getData = 
+  await ajaxRequest('https://api.example.com/items/get', 'GET', { course: 'New Course' });
+// POST
+const postData = 
+  await ajaxRequest('https://api.example.com/items/post', 'POST', { course: 'New Course', crsNo: "100q-er-gerg" });
+
+// ...許多類似的請求
+
+// page2.js
+import { ajaxRequest } from "./ajax.js"
+// POST
+const postData = 
+  await ajaxRequest('https://api.example.com/items', 'POST', { course: 'New Course', crsNo: "100q-er-gerg" });
+// DELETE
+const deleteData = 
+  await ajaxRequest('https://api.example.com/items/1', 'DELETE');
+
+// ...其餘請求
+
+```
+
+````
+
 
 <!-- - 統一模組系統：
   - 儘量在項目中統一使用一種模組系統，<span v-mark.circle.yellow="1">避免混合使用</span> CommonJS 和 ESM，以減少兼容性問題。
