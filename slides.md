@@ -29,6 +29,7 @@ fonts:
 ---
 
 # 前端模組化與打包工具
+
 <h3 style="font-size: 1.5em; color:rgb(167, 167, 167);">ES modules、NodeJS 與 ViteJS</h3>
 
 <div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
@@ -49,8 +50,8 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-transition: fade-out
----
+
+## transition: fade-out
 
 ## 小龍的維護惡夢：剝洋蔥式 Debug
 
@@ -98,36 +99,42 @@ transition: fade-out
   v-click
   :initial="{ y: 200, opacity: 0, scale: 0 }"
   :click-1="{ x: 0, opacity: 100, y:-180, scale: 1  }"
-  :leave="{ y: 0, x: 80 }"> 
+  :leave="{ y: 0, x: 80 }">
 
 ```html
-  <!-- _Layout.cshtml -->
-    <!-- CSS -->
-    <link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
-    <link href="~/CssPage/Group/layout.css" rel="stylesheet" />
-    <!-- JS -->
-    <script type="text/javascript" src="~/JsPage/Models/TM_AttFile_Attachment.js"></script>
-    <script src="~/Template/Hyper_Red/js/app.es5.min.js"></script>
-  <!-- _PartialHeader.cshtml -->
-    <!-- CSS -->
-    <link href="~/Template/Hyper_Red/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" />
-    <!-- JS -->
-    <script src="~/JsPage/Group/G001/Header.js"></script>
-  <!-- _PartialMain.cshtml -->
-    <!-- CSS -->
-    <link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
-    <!-- JS -->
-    <script src="~/Template/Hyper_Red/js/vendor/jquery.dataTables.min.js"></script>
-    <script>
-      var pageName = "What's up"
-    </script>
-
+<!-- _Layout.cshtml -->
+<!-- CSS -->
+<link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
+<link href="~/CssPage/Group/layout.css" rel="stylesheet" />
+<!-- JS -->
+<script
+  type="text/javascript"
+  src="~/JsPage/Models/TM_AttFile_Attachment.js"
+></script>
+<script src="~/Template/Hyper_Red/js/app.es5.min.js"></script>
+<!-- _PartialHeader.cshtml -->
+<!-- CSS -->
+<link
+  href="~/Template/Hyper_Red/css/vendor/dataTables.bootstrap4.css"
+  rel="stylesheet"
+/>
+<!-- JS -->
+<script src="~/JsPage/Group/G001/Header.js"></script>
+<!-- _PartialMain.cshtml -->
+<!-- CSS -->
+<link href="~/CssPage/Main/uploadFile.css" rel="stylesheet" />
+<!-- JS -->
+<script src="~/Template/Hyper_Red/js/vendor/jquery.dataTables.min.js"></script>
+<script>
+  var pageName = "What's up"
+</script>
 ```
+
  </div>
 
 ---
-transition: fade-out
----
+
+## transition: fade-out
 
 <style>
 h1,h2 {
@@ -257,34 +264,38 @@ code {
   v-click
   :initial="{ x: 100, opacity: 0 }"
   :click-1="{ x: 0, opacity: 100  }"
-  :leave="{ y: 0, x: 80 }"> 
+  :leave="{ y: 0, x: 80 }">
 
-  ```html
-      <!-- _Layout.cshtml -->
-      <script src="~/Template/Hyper_Red/js/app.es5.min.js"></script>
+```html
+<!-- _Layout.cshtml -->
+<script src="~/Template/Hyper_Red/js/app.es5.min.js"></script>
 
-      <!-- The file you intend to use -->
-      <script src="~/JsPage/Group/G001/THomeworkEdit.js?v=@eLearningWeb.AppConfig.Version"></script>
-      <!-- SomeFile.cshtml -->
-      <script src="~/Template/Hyper_Red/js/vendor/dropzone.min.js"></script>
-      <script src="~/Template/Hyper_Red/js/ui/component.fileupload.js?v=@eLearningWeb.AppConfig.Version"></script>
+<!-- The file you intend to use -->
+<script src="~/JsPage/Group/G001/THomeworkEdit.js?v=@eLearningWeb.AppConfig.Version"></script>
+<!-- SomeFile.cshtml -->
+<script src="~/Template/Hyper_Red/js/vendor/dropzone.min.js"></script>
+<script src="~/Template/Hyper_Red/js/ui/component.fileupload.js?v=@eLearningWeb.AppConfig.Version"></script>
+```
 
-  ```
-</div> 
+</div>
 
 ---
+
 transition: slide-left
 layout: image
 image: https://images.unsplash.com/photo-1526566661780-1a67ea3c863e?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 class: place-content-center
+
 ---
 
 <h1 class="text-center" v-motion :initial="{ y: -50, opacity: 0 }" :enter="{ y: 0, opacity: 1 }" style="transition: all 1.2s ease;">Import/export solves all.</h1>
 
 ---
+
 transition: slide-up
 level: 2
 layout: two-cols
+
 ---
 
 ## 模組化大躍進：從手動排序到自行組織
@@ -367,30 +378,28 @@ layout: two-cols
 ```html
 <script scr="path/to/your/file" type="module"></script>
 ```
+
 </div>
 
-
 ````md magic-move {lines: true}
-
 ```javascript {*|8-14|*}
-
 // module.js
-const greeting = 'Hello world';
+const greeting = "Hello world"
 
 function add(a, b) {
-  return a + b;
+  return a + b
 }
 
 module.exports = {
   greeting: greeting,
-  add: add
-};
+  add: add,
+}
 
 // main.js
-const myModule = require('./module');
+const myModule = require("./module")
 
-console.log(myModule.greeting); // Hello world
-console.log(myModule.add(2, 3)); // 5
+console.log(myModule.greeting) // Hello world
+console.log(myModule.add(2, 3)) // 5
 ```
 
 ```javascript
@@ -407,13 +416,11 @@ import { myDropzone } from "./module.js";
 myDropzone.processFile();
 
 ```
-```` 
-
+````
 
 ---
-transition: slide-left
----
 
+## transition: slide-left
 
 ## 模組化重構：從混亂到條理分明
 
@@ -469,23 +476,22 @@ transition: slide-left
 <v-click>
 
 ````md magic-move {lines: true}
+```javascript {1-5|7-12|*}
+// A.js
+const privateVar = "I am in A.js"
+/** some comment */
+export function showVar() {
+  console.log(privateVar)
+}
 
-```javascript {1-5|7-12|*} 
-  // A.js
-  const privateVar = 'I am in A.js';
-  /** some comment */
-  export function showVar() {
-    console.log(privateVar); 
-  }
-
-  // B.js
-  import { showVar } from "A.js";
-  const privateVar = 'I am in B.js'
-  showVar(); // 'I am in A.js' 如果hover會得到'some comment'
-  console.log(privateVar); // 'I am in B.js'
+// B.js
+import { showVar } from "A.js"
+const privateVar = "I am in B.js"
+showVar() // 'I am in A.js' 如果hover會得到'some comment'
+console.log(privateVar) // 'I am in B.js'
 ```
-
 ````
+
 </v-click>
 
 <v-click>
@@ -493,37 +499,36 @@ transition: slide-left
 </v-click>
 
 ---
-transition: slide-up
----
+
+## transition: slide-up
 
 **動態載入**：ESM <span class="text-green-400">原生支援</span>動態加載，只載入實際需要的部分，提升性能。
-  1. **完整加載**
+
+1. **完整加載**
 
 ````md magic-move {lines: true}
-
 ```javascript
 // <script src="./module.js"></script> 使用傳統 HTML 載入
 
-largeFunction.smallFunction();
+largeFunction.smallFunction()
 ```
 
 ```javascript
 // CommonJS
-const largeFunction = require("./module.js");
+const largeFunction = require("./module.js")
 
-largeFunction.smallFunction();
+largeFunction.smallFunction()
 ```
-
 ````
 
-  2. **動態加載**: <v-click><span v-mark.red="2" class="ml-1 text-base text-amber-400">只載入會被使用到的部分，維護程式隱蔽性、減少不必要效能使用、減少記憶體使用</span></v-click>
+2. **動態加載**: <v-click><span v-mark.red="2" class="ml-1 text-base text-amber-400">只載入會被使用到的部分，維護程式隱蔽性、減少不必要效能使用、減少記憶體使用</span></v-click>
 
-  ```javascript
-  import('./module.js').then(({ smallFunction }) => {
-    smallFunction();
-  }); 
-  ```
-  
+```javascript
+import("./module.js").then(({ smallFunction }) => {
+  smallFunction()
+})
+```
+
 **打包編譯工具**：打包工具如 <span class="text-green-400">Vite 、 Webpack 、 Rspack</span> 等工具會自動解析依賴，優化資源分配。
 
 <div v-motion
@@ -541,11 +546,12 @@ graph LR
   C --> E
   E --> F[Optimized Bundle]
 ```
+
 </div>
 
 ---
-transition: slide-down
----
+
+## transition: slide-down
 
 ## 新舊模組系統的相容性問題
 
@@ -560,7 +566,6 @@ transition: slide-down
 <div class="space-y-1 text-gray-600">
 
 ````md magic-move {lines: true}
-
 ```bash
 Error: Dynamic require of "<module_name>" is not supported
 ```
@@ -570,6 +575,7 @@ Error [ERR_REQUIRE_ESM]: require() of ES Module (...) from (...) not supported.
 Instead change the require of (...) in (...) to a dynamic import() which is available in all CommonJS modules.
 ```
 ````
+
 </div>
 
 </div>
@@ -617,10 +623,9 @@ Instead change the require of (...) in (...) to a dynamic import() which is avai
     </div>
   </div>
 
+---
 
----
-transition: slide-left
----
+## transition: slide-left
 
 ## 銜接新舊模組系統的最佳實踐
 
@@ -697,38 +702,38 @@ transition: slide-left
 </div>
 
 ---
+
 transition: fade
 layout: image
 image: https://images.unsplash.com/photo-1547190027-9156686aa2f0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D
+
 ---
 
 ## Simple DEMO
 
 ````md magic-move {lines: true}
-
 ```javascript
 // page1.js
 // GET 請求
 const data = await $.ajax({
-  url: 'https://api.example.com/get',
-  data: { course: 'New Course'},
-  method: 'GET',
-  async: true
-});
-console.log('GET 結果:', data);
+  url: "https://api.example.com/get",
+  data: { course: "New Course" },
+  method: "GET",
+  async: true,
+})
+console.log("GET 結果:", data)
 
 // POST 請求
 const data = await $.ajax({
-  url: 'https://api.example.com/post',
-  method: 'POST',
-  contentType: 'application/json',
-  data: JSON.stringify({ course: 'New Course', crsNo: "100q-er-gerg" }),
-  async: true
-});
+  url: "https://api.example.com/post",
+  method: "POST",
+  contentType: "application/json",
+  data: JSON.stringify({ course: "New Course", crsNo: "100q-er-gerg" }),
+  async: true,
+})
 
 // page2.js
 // 許多類似的請求處理...
-
 ```
 
 ```javascript
@@ -758,10 +763,10 @@ export ajaxRequest;
 // page1.js
 import { ajaxRequest } from "./ajax.js"
 // GET
-const getData = 
+const getData =
   await ajaxRequest('https://api.example.com/items/get', 'GET', { course: 'New Course' });
 // POST
-const postData = 
+const postData =
   await ajaxRequest('https://api.example.com/items/post', 'POST', { course: 'New Course', crsNo: "100q-er-gerg" });
 
 // ...許多類似的請求
@@ -769,18 +774,16 @@ const postData =
 // page2.js
 import { ajaxRequest } from "./ajax.js"
 // POST
-const postData = 
+const postData =
   await ajaxRequest('https://api.example.com/items', 'POST', { course: 'New Course', crsNo: "100q-er-gerg" });
 // DELETE
-const deleteData = 
+const deleteData =
   await ajaxRequest('https://api.example.com/items/1', 'DELETE');
 
 // ...其餘請求
 
 ```
-
 ````
-
 
 <!-- - 統一模組系統：
   - 儘量在項目中統一使用一種模組系統，<span v-mark.circle.yellow="1">避免混合使用</span> CommonJS 和 ESM，以減少兼容性問題。
@@ -797,11 +800,12 @@ const deleteData =
 - 明確模組路徑：
   - 在引用模組時，明確指定模組的路徑，避免因模組解析行為不同導致的錯誤。 -->
 
-
 ---
+
 transition: fade
 layout: image
 image: https://images.unsplash.com/photo-1549088521-94b6502fec3d?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+
 ---
 
 <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js Logo" style="height: 65px; margin-bottom:1rem" />
@@ -845,25 +849,27 @@ pnpm add jquery
 </div>
 
 ---
+
 transition: fade
 layout: image-right
 image: ./assets/trend.png
 backgroundSize: contain
+
 ---
 
-## Node.s 2024一些可以說嘴的統計數據
+## Node.s 2024一些可以無聊的統計數據
 
 <div class="text-xl text-gray-600 italic mb-6">
   <svg viewBox="0 0 1500 1500" class="w-full h-full">
 
-  <image 
+<image 
     href="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     width="1500" 
     height="1500"
     preserveAspectRatio="xMidYMid slice"
     class="opacity-50"
   />
-  
+
   <g transform="translate(410,1010)">
     <circle cx="0" cy="0" r="20" fill="#3B82F6" class="animate-pulse"/>
     <text x="40" y="40" fill="white" font-size="14" class="animate-laser" style="animation-duration:800ms">50-60% 加載時間優化</text>
@@ -935,9 +941,11 @@ backgroundSize: contain
 </style>
 
 ---
+
 transition: slide-down
 layout: two-cols-header
 class: gap-2
+
 ---
 
 ## 簡單介紹 NPM
@@ -969,34 +977,38 @@ class: gap-2
 #### package.json 管理腳本
 
 ````md magic-move {lines: true}
-
 ```json {*|1-5|6-11|12-17}
 {
-  "name": "my-project", 
+  "name": "my-project",
   "version": "1.0.0",
   "description": "A simple project",
   "main": "index.js",
-  "scripts": {               // 定義執行腳本快捷
+  "scripts": {
+    // 定義執行腳本快捷
     "start": "node index.js",
     "test": "jest",
     "build": "dotnet build",
     "run": "dotnet run"
   },
-  "dependencies": {          // 公開套件
+  "dependencies": {
+    // 公開套件
     "dotnet": "^4.17.1"
   },
-  "devDependencies": {       // 開發人員套件
+  "devDependencies": {
+    // 開發人員套件
     "jest": "^26.6.3"
   }
 }
 ```
 ````
+
 ---
+
 transition: fade-out
 layout: image
 image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
----
 
+---
 
 # ViteJS
 
@@ -1045,11 +1057,11 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
   v-motion
   :initial="{ y: 100 }"
   :enter="{y: 10 }">
-<img 
-  src="./assets/vite-github.png"
-  alt="Vite Github"
-  border="rounded"
-/>
+  <img 
+    src="./assets/vite-github.png"
+    alt="Vite Github"
+    border="rounded"
+  />
 </div>
 
 <div 
@@ -1057,6 +1069,7 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
   v-motion
   :initial="{ scale: 0, opacity: 0 }"
   :enter="{ scale: 1, y: 420, opacity: 100 }"
+  :leave="{ scale: 0, y: 0, opacity: 0}"
   class="absolute inset-0 size-full duration-400">
 <img 
   src="./assets/vite-tweet.png"
@@ -1066,15 +1079,17 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
 />
 </div>
 
-
 ---
+
 transition: fade-out
 layout: two-cols-header
+
 ---
 
 # 告別傳統打包時代！
 
 ### Vite 的開發伺服器使用了 <span class="text-green-400" v-mark.red>Native-ESM 架構</span>
+
 ### 不再依賴繁瑣的 Bundle-based 處理流程！
 
 :: left ::
@@ -1110,10 +1125,13 @@ layout: two-cols-header
 </div>
 
 ---
+
 transition: fade-out
---- 
+
+---
 
 ## Bundle 的 Magic
+
 <div v-after>
   <h4>經由 <span class="text-green-400">entry point</span>, Vite會藉由<span v-mark.circle.orange="1" >入口點</span>一路往下找去做<span v-mark.red="1" class="text-amber-400"> bundle, minify, transpile </span></h4>
 </div>
@@ -1123,7 +1141,6 @@ transition: fade-out
 </div>
 
 ````md magic-move {lines: true}
-
 ```plaintext {*|12}
 # 未經優化的輸出
 project/
@@ -1152,7 +1169,7 @@ project/
 project/
 ├── dist/
 │   ├── js/
-│   │   └── app.js 
+│   │   └── app.js
 │   └── css/
 │       └── styles.css
 └── bin/
@@ -1162,19 +1179,17 @@ project/
 ```
 ````
 
-
 <v-click>
 
 ````md magic-move {lines: true}
 ```html
 <!-- 原本的引入方式 -->
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css" />
 ```
 
 ```javascript
 // app.js
-import './styles.css';
-
+import "./styles.css"
 ```
 
 ```bash
@@ -1185,22 +1200,28 @@ npm run dev
 npm run build
 ```
 ````
+
 </v-click>
 
 ---
+
 transiton: fade-out
 layout: center
 class: text-center
+
 ---
 
 # Netflix 等級的 Node.Js 紀錄片
+
 <Youtube id="LB8KwiiUGy0" width="800" height="400"/>
 
 ---
+
 layout: cover
 class: text-center
 background: https://images.unsplash.com/photo-1533613220915-609f661a6fe1?q=80&w=1664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
---- 
+
+---
 
 # 謝謝聆聽
 
