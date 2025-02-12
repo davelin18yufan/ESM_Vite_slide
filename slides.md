@@ -50,10 +50,12 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-
-## transition: fade-out
+transition: fade-out
+---
 
 ## 小龍的維護惡夢：剝洋蔥式 Debug
+
+<br />
 
 ### 「這個 function 到底從哪裡來？」
 
@@ -82,7 +84,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
   <div class="flex items-center space-x-4 my-3">
     <CirclePercentage :percentage="40" :size="100" :stroke-width="8" />
     <div>
-      <div class="font-bold text-yellow-500">引入順序檢查</div>
+      <div class="font-bold text-yellow-500">引入的變數或是函式來源成謎</div>
       <div class="text-gray-400 text-sm">Ctrl + F * N</div>
       <div class="text-gray-600">花費總時間的 40%</div>
     </div>
@@ -90,15 +92,15 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 </div>
 
-<div class="italic text-gray-400 border-l-4 border-gray-300 pl-4 my-1">
+<div class="italic text-gray-400 border-l-4 border-gray-300 pl-4 my-3">
   小龍深深嘆了口氣：「如果當初有模組化架構，我就不用這樣找一整天了。」
 </div>
 
 </br>
 <div v-motion
-  v-click
+  v-click="[1]"
   :initial="{ y: 200, opacity: 0, scale: 0 }"
-  :click-1="{ x: 0, opacity: 100, y:-180, scale: 1  }"
+  :enter="{ x: 0, opacity: 100, y:-270, scale: 1  }"
   :leave="{ y: 0, x: 80 }">
 
 ```html
@@ -126,15 +128,15 @@ The last comment block of each slide will be treated as slide notes. It will be 
 <!-- JS -->
 <script src="~/Template/Hyper_Red/js/vendor/jquery.dataTables.min.js"></script>
 <script>
-  var pageName = "What's up"
+  var data = "What's up" // some data
 </script>
 ```
 
  </div>
 
 ---
-
-## transition: fade-out
+transition: fade-out
+---
 
 <style>
 h1,h2 {
@@ -171,11 +173,11 @@ code {
       <div class="text-red-500 text-4xl">🔧</div>
       <div>
         <div class="font-bold text-red-500 text-lg">維護性危機</div>
-        <div class="text-gray-600">
-          - 套件相依性如同盤根錯節<br>
-          - jQuery 插件順序之謎<br>
-          - 「動了這裡，壞了那裡」
-        </div>
+        <ul class="text-gray-600">
+          <li>套件相依性如同盤根錯節</li>
+          <li> jQuery 插件順序之謎</li>
+          <li>「動了這裡，壞了那裡」</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -272,7 +274,8 @@ code {
 
 <!-- The file you intend to use -->
 <script src="~/JsPage/Group/G001/THomeworkEdit.js?v=@eLearningWeb.AppConfig.Version"></script>
-<!-- SomeFile.cshtml -->
+
+<!-- 以下順序哪個要先哪個要後 -->
 <script src="~/Template/Hyper_Red/js/vendor/dropzone.min.js"></script>
 <script src="~/Template/Hyper_Red/js/ui/component.fileupload.js?v=@eLearningWeb.AppConfig.Version"></script>
 ```
@@ -280,22 +283,18 @@ code {
 </div>
 
 ---
-
 transition: slide-left
 layout: image
 image: https://images.unsplash.com/photo-1526566661780-1a67ea3c863e?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 class: place-content-center
-
 ---
 
-<h1 class="text-center" v-motion :initial="{ y: -50, opacity: 0 }" :enter="{ y: 0, opacity: 1 }" style="transition: all 1.2s ease;">Import/export solves all.</h1>
+<h1 class="text-center font-bold letter-space-1" v-motion :initial="{ y: -50, opacity: 0 }" :enter="{ y: 0, opacity: 1 }" style="transition: all 1.2s ease;">Import/export solves all.</h1>
 
 ---
-
 transition: slide-up
 level: 2
 layout: two-cols
-
 ---
 
 ## 模組化大躍進：從手動排序到自行組織
@@ -306,11 +305,11 @@ layout: two-cols
   <div class="space-y-1 pl-4">
     <div class="bg-slate-200 border-1 border-sky-50 p-4 rounded-lg">
       <div class="text-gray-600 font-bold">傳統</div>
-      <div class="text-gray-600">手動 script 標籤</div>
+      <div class="text-gray-600">手動 script 標籤引入</div>
     </div>
     <div class="bg-slate-200 border-1 border-amber-50 p-4 rounded-lg">
       <div class="text-blue-400 font-bold">進化時期</div>
-      <div class="text-gray-600">CommonJS：<span v-mark.circle.orange="1">同步</span>，適用後端，但瀏覽器需打包工具</div>
+      <div class="text-gray-600">CommonJS：<span v-mark.circle.orange="1">同步</span>，適用後端，但瀏覽器需打包工具協助編譯</div>
     </div>
     <div class="bg-slate-200 border-1 border-rose-50 p-4 rounded-lg">
       <div class="text-green-500 font-bold">現代標準</div>
@@ -324,7 +323,7 @@ layout: two-cols
 <div 
   class="bg-green-50 p-6 rounded-lg border-2 border-green-200" 
   v-motion 
-  v-click="5"
+  v-click="6"
   :initial="{ y: 0, opacity: 0 }" 
   :enter="{ y: -100, opacity: 1 }"
 >
@@ -347,7 +346,7 @@ layout: two-cols
 
 :: right ::
 
-<div class="grid grid-cols-3 gap-2 mt-2" v-click="5" v-motion  
+<div class="grid grid-cols-3 gap-2 mt-2" v-click="6" v-motion  
   :initial="{ scale: 0, opacity: 0.5 }" 
   :enter="{ scale: 1, opacity: 1 }"
 >
@@ -382,24 +381,46 @@ layout: two-cols
 </div>
 
 ````md magic-move {lines: true}
-```javascript {*|8-14|*}
+```javascript {*|8-14}
 // module.js
-const greeting = "Hello world"
+const $ = require('jquery');
+const Dropzone = require('dropzone');
 
-function add(a, b) {
-  return a + b
-}
+const greeting = "Hello world"
+const myDropzone = new Dropzone('#my-dropzone');
 
 module.exports = {
-  greeting: greeting,
-  add: add,
+  myDropzone: myDropzone,
+  greeting: greeting
 }
 
 // main.js
-const myModule = require("./module")
+const myModule = require('./module.js');
 
 console.log(myModule.greeting) // Hello world
-console.log(myModule.add(2, 3)) // 5
+myModule.myDropzone.processFile(); // uploading...
+
+```
+
+```javascript {2-3|16-17}
+// module.js
+const Dropzone = require('dropzone'); //順序顛倒
+const $ = require('jquery');
+
+const greeting = "Hello world"
+const myDropzone = new Dropzone('#my-dropzone');
+
+module.exports = {
+  myDropzone: myDropzone,
+  greeting: greeting
+}
+
+// main.js
+const myModule = require('./module.js');
+
+console.log(myModule.greeting) // Hello world
+myModule.myDropzone.processFile(); // Error
+
 ```
 
 ```javascript
@@ -408,19 +429,24 @@ import $ from 'jquery';
 import Dropzone from 'dropzone';
 
 const myDropzone = new Dropzone('#my-dropzone');
+const greeting = "Hello world"
 
-export myDropzone;
+export { myDropzone, greeting };
 
 // main.js
-import { myDropzone } from "./module.js";
+import { myDropzone, greeting } from "./module.js";
+
 myDropzone.processFile();
+console.log(myModule.greeting) // Hello world
+
+// import/export solves all.
 
 ```
 ````
 
 ---
-
-## transition: slide-left
+transition: slide-left
+---
 
 ## 模組化重構：從混亂到條理分明
 
@@ -499,8 +525,8 @@ console.log(privateVar) // 'I am in B.js'
 </v-click>
 
 ---
-
-## transition: slide-up
+transition: slide-up
+---
 
 **動態載入**：ESM <span class="text-green-400">原生支援</span>動態加載，只載入實際需要的部分，提升性能。
 
@@ -521,7 +547,7 @@ largeFunction.smallFunction()
 ```
 ````
 
-2. **動態加載**: <v-click><span v-mark.red="2" class="ml-1 text-base text-amber-400">只載入會被使用到的部分，維護程式隱蔽性、減少不必要效能使用、減少記憶體使用</span></v-click>
+2. **動態加載**: <v-click><span v-mark.red="2" class="ml-1 text-base text-amber-400">在需要時才載入並只載入會被使用到的部分，維護程式隱蔽性、減少不必要效能使用、減少記憶體使用</span></v-click>
 
 ```javascript
 import("./module.js").then(({ smallFunction }) => {
@@ -550,8 +576,8 @@ graph LR
 </div>
 
 ---
-
-## transition: slide-down
+transition: slide-down
+---
 
 ## 新舊模組系統的相容性問題
 
@@ -624,8 +650,8 @@ Instead change the require of (...) in (...) to a dynamic import() which is avai
   </div>
 
 ---
-
-## transition: slide-left
+transition: slide-left
+---
 
 ## 銜接新舊模組系統的最佳實踐
 
@@ -702,11 +728,9 @@ Instead change the require of (...) in (...) to a dynamic import() which is avai
 </div>
 
 ---
-
 transition: fade
 layout: image
 image: https://images.unsplash.com/photo-1547190027-9156686aa2f0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D
-
 ---
 
 ## Simple DEMO
@@ -755,13 +779,13 @@ async function ajaxRequest(url, method = 'GET', data = null) {
   }
 }
 
-export ajaxRequest;
+export default ajaxRequest;
 
 ```
 
-```javascript{2,13|*}
+```javascript{1-2,12-13|*}
 // page1.js
-import { ajaxRequest } from "./ajax.js"
+import ajaxRequest from "./ajax.js"
 // GET
 const getData =
   await ajaxRequest('https://api.example.com/items/get', 'GET', { course: 'New Course' });
@@ -772,7 +796,7 @@ const postData =
 // ...許多類似的請求
 
 // page2.js
-import { ajaxRequest } from "./ajax.js"
+import ajaxRequest from "./ajax.js"
 // POST
 const postData =
   await ajaxRequest('https://api.example.com/items', 'POST', { course: 'New Course', crsNo: "100q-er-gerg" });
@@ -801,11 +825,9 @@ const deleteData =
   - 在引用模組時，明確指定模組的路徑，避免因模組解析行為不同導致的錯誤。 -->
 
 ---
-
 transition: fade
 layout: image
 image: https://images.unsplash.com/photo-1549088521-94b6502fec3d?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-
 ---
 
 <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js Logo" style="height: 65px; margin-bottom:1rem" />
@@ -818,7 +840,7 @@ image: https://images.unsplash.com/photo-1549088521-94b6502fec3d?q=80&w=1632&aut
 
   <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
     <h3 class="text-blue-400 text-xl font-bold">📦 強大的模組管理</h3>
-    <p>使用 <span class="text-green-400">NPM、Yarn、PNPM、Vlt</span>，簡化套件管理，擁有全球最大開源生態系統。</p>
+    <p>使用 <span class="text-green-400">npm、yarn、pnpm、vlt</span>，簡化套件管理，擁有<span v-mark.red="2">全球最大開源生態系統</span>。</p>
   </div>
 
   <div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
@@ -849,15 +871,13 @@ pnpm add jquery
 </div>
 
 ---
-
 transition: fade
 layout: image-right
 image: ./assets/trend.png
 backgroundSize: contain
-
 ---
 
-## Node.s 2024一些可以無聊的統計數據
+## Node.s 2024一些無聊的統計數據
 
 <div class="text-xl text-gray-600 italic mb-6">
   <svg viewBox="0 0 1500 1500" class="w-full h-full">
@@ -941,11 +961,9 @@ backgroundSize: contain
 </style>
 
 ---
-
 transition: slide-down
 layout: two-cols-header
 class: gap-2
-
 ---
 
 ## 簡單介紹 NPM
@@ -977,7 +995,7 @@ class: gap-2
 #### package.json 管理腳本
 
 ````md magic-move {lines: true}
-```json {*|1-5|6-11|12-17}
+```json {*|1-5|6-12|13-20}
 {
   "name": "my-project",
   "version": "1.0.0",
@@ -1003,11 +1021,9 @@ class: gap-2
 ````
 
 ---
-
 transition: fade-out
 layout: image
 image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-
 ---
 
 # ViteJS
@@ -1034,7 +1050,7 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
   </div>
 
   <div class="bg-gray-900 text-white py-3 px-4 rounded-xl shadow-lg flex flex-col items-center">
-    <h4 class="text-green-400 text-xl font-bold">📣 打包編譯一打十</h4>
+    <h4 class="text-orange-400 text-xl font-bold">📣 打包編譯一打十</h4>
     <p class="text-sm">Vite整合了 transpiler, <span class="text-green-400">bundler (Rollup, esbuild)</span>, <span class="text-green-400 ml-1" v-mark.red="1">build tool (Vite)</span> 為一體，一套就做到好。</p>
   </div>
 
@@ -1080,10 +1096,8 @@ image: https://images.unsplash.com/photo-1483356256511-b48749959172?q=80&w=1770&
 </div>
 
 ---
-
 transition: fade-out
 layout: two-cols-header
-
 ---
 
 # 告別傳統打包時代！
@@ -1125,9 +1139,7 @@ layout: two-cols-header
 </div>
 
 ---
-
 transition: fade-out
-
 ---
 
 ## Bundle 的 Magic
@@ -1137,7 +1149,7 @@ transition: fade-out
 </div>
 
 <div v-click="2" class="text-gray-500 italic">
-  只要在開發過程保持檔案結構，並不會影響開發流程，就會自動將靜態檔案全部打包並處理。
+  只要在開發過程保持檔案結構，並不會影響開發流程，就會自動將<span class="text-green-400">靜態檔案</span>全部打包並輸出。
 </div>
 
 ````md magic-move {lines: true}
@@ -1149,9 +1161,9 @@ project/
 │   └── ApiController.cs
 ├── Views/
 │   ├── Home/
-│   │   └── Index.cshtml
+│   │   └── Index.html    // entry route
 │   └── Shared/
-│       └── _Layout.cshtml
+│       └── _Layout.html
 ├── JsPage/
 │   ├── app.js            // entry point
 │   └── layout.js
@@ -1172,10 +1184,13 @@ project/
 │   │   └── app.js
 │   └── css/
 │       └── styles.css
+├── Views/
+│   ├── Home/
+│   │   └── Index.html
+│   └── Shared/
+│       └── _Layout.html
 └── bin/
-  └── Release/
-    └── net4.8/
-      └── web.dll
+    └── web.dll
 ```
 ````
 
@@ -1204,11 +1219,9 @@ npm run build
 </v-click>
 
 ---
-
 transiton: fade-out
 layout: center
 class: text-center
-
 ---
 
 # Netflix 等級的 Node.Js 紀錄片
@@ -1216,11 +1229,9 @@ class: text-center
 <Youtube id="LB8KwiiUGy0" width="800" height="400"/>
 
 ---
-
 layout: cover
 class: text-center
 background: https://images.unsplash.com/photo-1533613220915-609f661a6fe1?q=80&w=1664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-
 ---
 
 # 謝謝聆聽
