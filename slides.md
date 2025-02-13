@@ -1000,6 +1000,10 @@ class: gap-2
   npm install <package-name> --save-dev
   ```
 
+<br/>
+
+> ***現在小龍可以悠閒地喝個下午茶了***
+
 :: right ::
 
 #### package.json 管理腳本
@@ -1223,6 +1227,10 @@ npm run dev
 
 # 生產環境
 npm run build
+```
+
+```bash
+# 現在小龍跟小凱可以一起出去喝下午茶了
 ```
 ````
 
