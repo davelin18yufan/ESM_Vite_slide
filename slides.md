@@ -160,7 +160,7 @@ code {
 }
 </style>
 
-# 前端的三大痛點
+# 傳統前端的三大痛點
 
 <div class="text-lg text-gray-500 italic -translate-y-4">
   從「一切正常」到「一改就炸」
@@ -653,7 +653,7 @@ Instead change the require of (...) in (...) to a dynamic import() which is avai
 transition: slide-left
 ---
 
-## 銜接新舊模組系統的最佳實踐
+### 讓新舊模組系統和平共處
 
 <div class="grid grid-cols-3 gap-4 text-gray-600">
 
@@ -673,7 +673,8 @@ transition: slide-left
     <div class="font-bold text-emerald-800">轉換工具</div>
   </div>
   <div class="text-gray-600">
-    使用 <code>Babel</code> 進行語法轉換，確保兼容性
+    <carbon:watch/>
+    使用 <code>Babel</code> 進行語法轉換，確保兼容性 
   </div>
 </div>
 
@@ -825,6 +826,15 @@ const deleteData =
   - 在引用模組時，明確指定模組的路徑，避免因模組解析行為不同導致的錯誤。 -->
 
 ---
+transition: slide-left
+layout: image
+image: https://images.unsplash.com/photo-1542690969-5a2050285637?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTR8fHxlbnwwfHx8fHw%3D
+class: place-content-center
+---
+
+<p class="text-center font-bold letter-space-1 text-4xl text-slate-200" v-motion :initial="{ y: -50, opacity: 0 }" :enter="{ y: 0, opacity: 1 }" style="transition: all 1.2s ease;">模組化的集大成 - Node.js</p>
+
+---
 transition: fade
 layout: image
 image: https://images.unsplash.com/photo-1549088521-94b6502fec3d?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
@@ -966,7 +976,7 @@ layout: two-cols-header
 class: gap-2
 ---
 
-## 簡單介紹 NPM
+## NPM - 世界最大的開源套件管理平台
 
 :: left ::
 
